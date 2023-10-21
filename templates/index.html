@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prophet Forecast</title>
+</head>
+<body>
+    <h1>Prophet Forecast</h1>
+
+    <form id="forecast-form">
+        <label for="start-date">Start Date (YYYY-MM-DD):</label>
+        <input type="text" id="start-date" name="start-date"><br>
+
+        <label for="end-date">End Date (YYYY-MM-DD):</label>
+        <input type="text" id="end-date" name="end-date"><br>
+
+        <input type="button" value="Predict" onclick="predict()">
+    </form>
+
+    <h2>Forecast Output:</h2>
+    <div id="forecast-output"></div>
+
+    <script>
+        function predict() {
+            var startDate = document.getElementById("start-date").value;
+            var endDate = document.getElementById("end-date").value;
+
+            // Send a POST request to the Flask server
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'start-date=' + startDate + '&end-date=' + endDate,
+            })
+            .then(response => response.json())
+            
+        }
+    </script>
+</body>
+</html>
